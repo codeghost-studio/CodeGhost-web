@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#050508" />
+  <title>CodeGhost — Estudio de Desarrollo Web | Codificación Espectral</title>
+  <meta name="description" content="CodeGhost es un estudio de desarrollo web especializado en HTML5, CSS3, JavaScript, diseño responsivo y experiencias de alto rendimiento." />
+  <meta name="author" content="CodeGhost Studio" />
+  <meta property="og:title" content="CodeGhost — Codificación Espectral" />
+  <meta property="og:description" content="Estudio de desarrollo web especializado en experiencias de alto rendimiento, diseño oscuro y arquitectura impecable." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- ── SEGURIDAD: cabeceras de política de contenido ── -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self';
+                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+                 font-src https://fonts.gstatic.com;
+                 img-src 'self' data:;
+                 connect-src 'self';
+                 frame-ancestors 'none';" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Permissions-Policy"
+        content="camera=(), microphone=(), geolocation=(), payment=()" />
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SPLASH SCREEN — Pantalla de carga inicial
+       ═══════════════════════════════════════════════════════════ -->
+  <div id="splash" role="status" aria-label="Cargando CodeGhost" aria-live="polite">
+    <div class="splash-inner">
+
+      <!-- Logo del ghost -->
+      <svg class="splash-logo" width="72" height="72" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M50 10C27.91 10 10 27.91 10 50V90L23.33 80L36.67 90L50 80L63.33 90L76.67 80L90 90V50C90 27.91 72.09 10 50 10Z" stroke="#00f5ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M33 42L23 52L33 62" stroke="#00ff88" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M67 42L77 52L67 62" stroke="#00ff88" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M55 32L45 72" stroke="#00ff88" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+
+      <!-- Nombre y slogan -->
+      <div class="splash-brand">
+        <h1>CodeGhost</h1>
+        <p>Codificación Espectral</p>
+      </div>
+
+      <!-- Barra de progreso -->
+      <div class="splash-progress">
+        <div class="splash-progress-labels">
+          <span id="splash-step">Inicializando entorno...</span>
+          <span id="splash-pct">0%</span>
+        </div>
+        <div class="splash-bar-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="splash-bar-track">
+          <div class="splash-bar-fill" id="splash-bar"></div>
+        </div>
+        <div class="splash-done" id="splash-done">SISTEMA LISTO</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HEADER / NAVBAR — Barra de navegación fija
+       ═══════════════════════════════════════════════════════════ -->
+
+  <!-- Enlace de saltar contenido (accesibilidad con teclado) -->
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+  <header id="site-header" role="banner">
+    <div class="container nav-inner">
+
+      <!-- Logo + nombre -->
+      <a href="#home" class="nav-logo" aria-label="CodeGhost — ir al inicio">
+        <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M50 10C27.91 10 10 27.91 10 50V90L23.33 80L36.67 90L50 80L63.33 90L76.67 80L90 90V50C90 27.91 72.09 10 50 10Z" stroke="#00f5ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M33 42L23 52L33 62" stroke="#00ff88" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M67 42L77 52L67 62" stroke="#00ff88" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M55 32L45 72" stroke="#00ff88" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>CodeGhost</span>
+      </a>
+
+      <!-- Links de navegación (escritorio) -->
+      <nav aria-label="Navegación principal">
+        <ul class="nav-links">
+          <li><a href="#home">Inicio</a></li>
+          <li><a href="#services">Servicios</a></li>
+          <li><a href="#projects">Proyectos</a></li>
+          <li><a href="#about">Filosofía</a></li>
+          <li><a href="#contact">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <!-- Botón hamburguesa (móvil) -->
+      <button class="hamburger" id="hamburger-btn" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-panel" aria-haspopup="dialog">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Overlay oscuro detrás del panel móvil -->
+  <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
+
+  <!-- Panel deslizante móvil -->
+  <div class="nav-panel" id="nav-panel" role="dialog" aria-modal="true" aria-label="Menú de navegación">
+    <div class="panel-header">
+      <div class="panel-logo">
+        <svg width="26" height="26" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+          <path d="M50 10C27.91 10 10 27.91 10 50V90L23.33 80L36.67 90L50 80L63.33 90L76.67 80L90 90V50C90 27.91 72.09 10 50 10Z" stroke="#00f5ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M33 42L23 52L33 62" stroke="#00ff88" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M67 42L77 52L67 62" stroke="#00ff88" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M55 32L45 72" stroke="#00ff88" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        CodeGhost
+      </div>
+      <!-- Botón X para cerrar el panel -->
+      <button class="close-btn" id="close-btn" aria-label="Cerrar menú">✕</button>
+    </div>
+
+    <nav aria-label="Menú de navegación móvil">
+      <ul class="panel-nav">
+        <li><a href="#home"     class="panel-link"><span class="num">01</span> Inicio</a></li>
+        <li><a href="#services" class="panel-link"><span class="num">02</span> Servicios</a></li>
+        <li><a href="#projects" class="panel-link"><span class="num">03</span> Proyectos</a></li>
+        <li><a href="#about"    class="panel-link"><span class="num">04</span> Filosofía</a></li>
+        <li><a href="#contact"  class="panel-link"><span class="num">05</span> Contacto</a></li>
+      </ul>
+    </nav>
+
+    <div class="panel-cta">
+      <a href="#contact" class="panel-link">Iniciar Proyecto</a>
+      <p>CodeGhost.studio@gmail.com</p>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MAIN — Contenido principal
+       ═══════════════════════════════════════════════════════════ -->
+  <main id="main-content" tabindex="-1">
+
+    <!-- ──────────────────────────────────────────────────────────
+         HERO — Sección de inicio con Matrix Rain
+         ────────────────────────────────────────────────────────── -->
+    <section id="home" aria-labelledby="hero-heading">
+
+      <!-- Canvas para el efecto Matrix Rain (dibujado con JavaScript) -->
+      <canvas id="matrix-canvas" aria-hidden="true"></canvas>
+
+      <!-- Gradiente para que el texto sea legible sobre el canvas -->
+      <div class="hero-overlay" aria-hidden="true"></div>
+
+      <div class="container">
+        <div class="hero-content">
+
+          <!-- Badge de estado del sistema -->
+          <div class="hero-badge" aria-hidden="true">
+            <span class="dot"></span>
+            Sistema activo — CodeGhost Studio
+          </div>
+
+          <!-- Titular rotativo (cambia cada 3.8s con JavaScript) -->
+          <div class="hero-heading-wrap" aria-live="polite" aria-atomic="true">
+            <h1 id="hero-phrase" id="hero-heading">Experiencias Web de Alto Impacto.</h1>
+          </div>
+
+          <!-- Descripción del estudio -->
+          <p class="hero-desc">
+            Artesanía digital en la sombra. Interfaces precisas, invisibles en su
+            complejidad y extraordinarias en su ejecución.
+          </p>
+
+          <!-- Botones de llamada a la acción -->
+          <div class="hero-btns">
+            <a href="#contact" class="btn-primary">
+              Iniciar Proyecto
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#projects" class="btn-outline">Ver Proyectos</a>
+          </div>
+
+          <!-- Estadísticas del estudio -->
+          <div class="hero-stats" aria-label="Estadísticas del estudio">
+            <div class="stat">
+              <div class="stat-line" aria-hidden="true"></div>
+              <div><div class="stat-value">+50</div><div>Proyectos entregados</div></div>
+            </div>
+            <div class="stat">
+              <div class="stat-line" aria-hidden="true"></div>
+              <div><div class="stat-value">99%</div><div>Satisfacción del cliente</div></div>
+            </div>
+            <div class="stat">
+              <div class="stat-line" aria-hidden="true"></div>
+              <div><div class="stat-value">5+</div><div>Años de experiencia</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Indicador de scroll animado -->
+      <div class="scroll-indicator" aria-hidden="true">
+        <div class="scroll-mouse">
+          <div class="scroll-dot"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ──────────────────────────────────────────────────────────
+         SERVICES — Servicios del estudio
+         ────────────────────────────────────────────────────────── -->
+    <section id="services" class="section bg-alt" aria-labelledby="services-heading">
+      <div class="container">
+
+        <!-- Encabezado de sección -->
+        <div class="anim-ready">
+          <p class="section-label" aria-hidden="true">01 — Especialidades</p>
+          <h2 id="services-heading" class="section-title">El arsenal de un experto</h2>
+          <div class="section-line" aria-hidden="true"></div>
+          <p class="section-desc">Cada disciplina dominada para crear experiencias web que superan expectativas. No solo funciona — impresiona.</p>
+        </div>
+
+        <!-- Grid de 6 tarjetas de servicio -->
+        <ul class="services-grid" role="list" aria-label="Lista de servicios">
+
+          <!-- Tarjeta 1: HTML5 Semántico -->
+          <li class="service-card anim-ready delay-1">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3>HTML5 Semántico</h3>
+            <p>Estructuras de marcado precisas que mejoran el SEO, la accesibilidad y la indexación. El cimiento invisible sobre el que se construye todo lo demás.</p>
+          </li>
+
+          <!-- Tarjeta 2: CSS3 y Animaciones -->
+          <li class="service-card anim-ready delay-2">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+            </div>
+            <h3>CSS3 y Animaciones</h3>
+            <p>Transiciones a 60fps que se sienten orgánicas. Cada movimiento tiene propósito: guiar la mirada, comunicar estado y elevar la experiencia.</p>
+          </li>
+
+          <!-- Tarjeta 3: JavaScript Avanzado -->
+          <li class="service-card anim-ready delay-3">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            </div>
+            <h3>JavaScript Avanzado</h3>
+            <p>Lógica frontend de precisión quirúrgica. Aplicaciones interactivas y complejas, construidas con patrones modernos y código limpio.</p>
+          </li>
+
+          <!-- Tarjeta 4: Diseño Responsivo -->
+          <li class="service-card anim-ready delay-4">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            </div>
+            <h3>Diseño Responsivo</h3>
+            <p>De móvil a monitores 4K, la interfaz se adapta sin fricciones. Mobile-first por principio, sin comprometer la experiencia de escritorio.</p>
+          </li>
+
+          <!-- Tarjeta 5: Diseño UX/UI -->
+          <li class="service-card anim-ready delay-5">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+            </div>
+            <h3>Diseño UX / UI</h3>
+            <p>Interfaces que equilibran estética y usabilidad. Cada decisión visual tiene una razón funcional detrás.</p>
+          </li>
+
+          <!-- Tarjeta 6: Alto Rendimiento -->
+          <li class="service-card anim-ready delay-6">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h3>Alto Rendimiento</h3>
+            <p>Optimizaciones extremas: carga mínima, código eficiente y experiencias que los usuarios no esperan, sino que dan por sentadas.</p>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- ──────────────────────────────────────────────────────────
+         PROJECTS — Portafolio de proyectos
+         ────────────────────────────────────────────────────────── -->
+    <section id="projects" class="section green-line" aria-labelledby="projects-heading">
+      <div class="container">
+
+        <div class="anim-ready">
+          <p class="section-label green" aria-hidden="true">02 — Trabajo</p>
+          <h2 id="projects-heading" class="section-title">Proyectos destacados</h2>
+          <div class="section-line green" aria-hidden="true"></div>
+          <p class="section-desc">Una selección de trabajos donde la calidad técnica y el diseño se encuentran.</p>
+        </div>
+
+        <div class="projects-grid" role="list">
+
+          <!-- Proyecto 1 — CIAN -->
+          <article class="project-card project-card--cyan anim-ready delay-1" role="listitem">
+            <div class="project-card-line" aria-hidden="true"></div>
+            <div class="project-card-body">
+              <div class="project-header">
+                <div>
+                  <p class="project-cat">Plataforma Web</p>
+                  <h3>ProjectAlpha</h3>
+                </div>
+                <div class="project-links">
+                  <!-- LINK GITHUB: reemplaza el # con la URL de tu repositorio -->
+                  <a href="https://github.com/tu-usuario/projectalpha" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Repositorio GitHub de ProjectAlpha">
+                    <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                  </a>
+                  <!-- LINK SITIO EN VIVO: reemplaza el # con la URL del proyecto desplegado -->
+                  <a href="https://projectalpha.com" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Ver ProjectAlpha en vivo">
+                    <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+              </div>
+              <p class="project-desc">Plataforma de análisis financiero con datos en tiempo real, gráficos interactivos a 60fps e interfaz construida para decisiones rápidas.</p>
+              <ul class="project-tags" aria-label="Tecnologías usadas">
+                <li class="tag">React</li>
+                <li class="tag">TypeScript</li>
+                <li class="tag">WebSocket</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Proyecto 2 — VERDE -->
+          <article class="project-card project-card--green anim-ready delay-2" role="listitem">
+            <div class="project-card-line" aria-hidden="true"></div>
+            <div class="project-card-body">
+              <div class="project-header">
+                <div>
+                  <p class="project-cat">Librería de Componentes</p>
+                  <h3>GhostUI</h3>
+                </div>
+                <div class="project-links">
+                  <!-- LINK GITHUB: reemplaza con la URL de tu repositorio -->
+                  <a href="https://github.com/tu-usuario/ghostui" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Repositorio GitHub de GhostUI">
+                    <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                  </a>
+                  <!-- LINK SITIO EN VIVO: reemplaza con la URL del proyecto desplegado -->
+                  <a href="https://ghostui.dev" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Ver GhostUI en vivo">
+                    <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+              </div>
+              <p class="project-desc">Sistema de diseño oscuro y minimalista para dashboards de alto rendimiento. Más de 40 componentes accesibles y listos para producción.</p>
+              <ul class="project-tags" aria-label="Tecnologías usadas">
+                <li class="tag">CSS3</li>
+                <li class="tag">Framer Motion</li>
+                <li class="tag">Storybook</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Proyecto 3 — CIAN -->
+          <article class="project-card project-card--cyan anim-ready delay-3" role="listitem">
+            <div class="project-card-line" aria-hidden="true"></div>
+            <div class="project-card-body">
+              <div class="project-header">
+                <div>
+                  <p class="project-cat">Comercio Electrónico</p>
+                  <h3>SpectralShop</h3>
+                </div>
+                <div class="project-links">
+                  <!-- LINK GITHUB: reemplaza con la URL de tu repositorio -->
+                  <a href="https://github.com/tu-usuario/spectralshop" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Repositorio GitHub de SpectralShop">
+                    <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                  </a>
+                  <!-- LINK SITIO EN VIVO: reemplaza con la URL del proyecto desplegado -->
+                  <a href="https://spectralshop.store" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Ver SpectralShop en vivo">
+                    <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+              </div>
+              <p class="project-desc">Tienda en línea headless con transiciones instantáneas entre páginas, carrito optimista y rendimiento de 100/100 en Lighthouse.</p>
+              <ul class="project-tags" aria-label="Tecnologías usadas">
+                <li class="tag">Next.js</li>
+                <li class="tag">Zustand</li>
+                <li class="tag">Tailwind</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Proyecto 4 — VERDE -->
+          <article class="project-card project-card--green anim-ready delay-4" role="listitem">
+            <div class="project-card-line" aria-hidden="true"></div>
+            <div class="project-card-body">
+              <div class="project-header">
+                <div>
+                  <p class="project-cat">Herramienta Web</p>
+                  <h3>NexusTerminal</h3>
+                </div>
+                <div class="project-links">
+                  <!-- LINK GITHUB: reemplaza con la URL de tu repositorio -->
+                  <a href="https://github.com/tu-usuario/nexusterminal" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Repositorio GitHub de NexusTerminal">
+                    <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                  </a>
+                  <!-- LINK SITIO EN VIVO: reemplaza con la URL del proyecto desplegado -->
+                  <a href="https://nexusterminal.app" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Ver NexusTerminal en vivo">
+                    <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+              </div>
+              <p class="project-desc">Simulador de terminal web para gestión remota de servidores. Interfaz inspirada en la línea de comandos con UX moderna.</p>
+              <ul class="project-tags" aria-label="Tecnologías usadas">
+                <li class="tag">JavaScript</li>
+                <li class="tag">Canvas API</li>
+                <li class="tag">Node.js</li>
+              </ul>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ──────────────────────────────────────────────────────────
+         ABOUT — Filosofía del estudio
+         ────────────────────────────────────────────────────────── -->
+    <section id="about" class="section bg-alt green-line" aria-labelledby="about-heading">
+      <div class="container">
+        <div class="about-grid">
+
+          <!-- Columna de texto (entra desde la izquierda) -->
+          <div class="about-text anim-ready anim-left">
+            <p class="section-label green" aria-hidden="true">03 — Filosofía</p>
+            <h2 id="about-heading" class="section-title">Obsesionado con la perfección técnica</h2>
+            <div class="section-line green" aria-hidden="true"></div>
+
+            <p>CodeGhost no es una agencia con burocracia interminable. Es un estudio de un solo desarrollador absolutamente comprometido con cada línea de código que firma.</p>
+            <p>Mi filosofía es la <strong>Codificación Espectral</strong>: construir arquitecturas invisibles en su complejidad, optimizadas para velocidad y diseñadas con criterio estético inquebrantable.</p>
+            <p>Un sitio web no es una colección de páginas estáticas. Es un software vivo que respira y evoluciona con quienes lo usan.</p>
+
+            <!-- Lista de principios de trabajo -->
+            <ul class="principles" aria-label="Principios de trabajo">
+              <li>
+                <span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Código limpio como filosofía, no como excusa
+              </li>
+              <li>
+                <span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Accesibilidad incluida desde el diseño
+              </li>
+              <li>
+                <span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Rendimiento medido, no asumido
+              </li>
+              <li>
+                <span class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+                Entrega puntual y comunicación clara
+              </li>
+            </ul>
+          </div>
+
+          <!-- Columna visual: anillos animados con logo (entra desde la derecha) -->
+          <div class="about-visual anim-ready anim-right" aria-hidden="true">
+            <div class="rings-wrap">
+              <!-- Tres anillos girando a distintas velocidades -->
+              <div class="ring ring-1"></div>
+              <div class="ring ring-2"></div>
+              <div class="ring ring-3"></div>
+
+              <!-- Logo ghost en el centro -->
+              <div class="ring-center">
+                <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+                  <path d="M50 10C27.91 10 10 27.91 10 50V90L23.33 80L36.67 90L50 80L63.33 90L76.67 80L90 90V50C90 27.91 72.09 10 50 10Z" stroke="#00f5ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M33 42L23 52L33 62" stroke="#00ff88" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M67 42L77 52L67 62" stroke="#00ff88" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M55 32L45 72" stroke="#00ff88" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+
+              <!-- Badge flotante: Estado disponible -->
+              <div class="badge-float badge-status">
+                <div class="badge-float-label">ESTADO</div>
+                <div class="badge-float-value">
+                  <span class="badge-dot"></span>
+                  Disponible
+                </div>
+              </div>
+
+              <!-- Badge flotante: Latencia -->
+              <div class="badge-float badge-latency">
+                <div class="badge-float-label">LATENCIA</div>
+                <div class="badge-float-value">12ms</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ──────────────────────────────────────────────────────────
+         CONTACT — Formulario de contacto seguro
+         ────────────────────────────────────────────────────────── -->
+    <section id="contact" class="section" aria-labelledby="contact-heading">
+      <div class="container">
+
+        <div class="anim-ready">
+          <p class="section-label" aria-hidden="true">04 — Contacto</p>
+          <h2 id="contact-heading" class="section-title">Hablemos de tu proyecto</h2>
+          <div class="section-line" aria-hidden="true"></div>
+          <p class="section-desc">Cuéntame tu idea. Respondo en menos de 24 horas con un análisis inicial sin costo.</p>
+        </div>
+
+        <div class="contact-grid">
+
+          <!-- Columna izquierda: canales de contacto directo -->
+          <aside class="contact-aside anim-ready anim-left" aria-label="Canales de contacto directo">
+            <h3>Contacto directo</h3>
+
+            <!-- Correo electrónico -->
+            <address class="not-italic">
+              <a href="mailto:CodeGhost.studio@gmail.com" class="contact-item">
+                <span class="contact-item-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </span>
+                <div>
+                  <p class="contact-item-label">Correo electrónico</p>
+                  <p class="contact-item-value">CodeGhost.studio@gmail.com</p>
+                </div>
+              </a>
+
+              <!-- WhatsApp -->
+              <a href="https://wa.me/5804147601459?text=Hola%20CodeGhost%2C%20quiero%20conocer%20tus%20servicios%20de%20desarrollo%20web" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" class="contact-item green">
+                <span class="contact-item-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                </span>
+                <div>
+                  <p class="contact-item-label">WhatsApp</p>
+                  <p class="contact-item-value">+58 0414-7601459</p>
+                </div>
+              </a>
+            </address>
+
+            <p class="contact-note">Disponible de lunes a viernes, 9:00 — 18:00 (UTC-4). Para urgencias, WhatsApp es el canal más rápido.</p>
+          </aside>
+
+          <!-- Columna derecha: formulario -->
+          <div class="anim-ready anim-right">
+            <form id="contact-form" class="contact-form" novalidate aria-label="Formulario de contacto">
+
+              <!-- Campo honeypot: trampa anti-bots (invisible para usuarios) -->
+              <div aria-hidden="true" class="honeypot-field">
+                <label for="website-field">Dejar vacío</label>
+                <input type="text" id="website-field" name="website" tabindex="-1" autocomplete="off" />
+              </div>
+
+              <!-- Fila: Nombre + Email -->
+              <div class="form-row">
+                <div>
+                  <label for="field-name" class="form-label">Nombre completo <span class="req" aria-hidden="true">*</span></label>
+                  <input type="text" id="field-name" name="name" required autocomplete="name" placeholder="Tu nombre" class="form-input" aria-required="true" />
+                </div>
+                <div>
+                  <label for="field-email" class="form-label">Correo electrónico <span class="req" aria-hidden="true">*</span></label>
+                  <input type="email" id="field-email" name="email" required autocomplete="email" placeholder="tu@correo.com" class="form-input" aria-required="true" />
+                </div>
+              </div>
+
+              <!-- Asunto -->
+              <div class="form-group">
+                <label for="field-subject" class="form-label">Asunto <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="field-subject" name="subject" required placeholder="¿En qué puedo ayudarte?" class="form-input" aria-required="true" />
+              </div>
+
+              <!-- Mensaje -->
+              <div class="form-group">
+                <label for="field-message" class="form-label">Mensaje <span class="req" aria-hidden="true">*</span></label>
+                <textarea id="field-message" name="message" required rows="5" placeholder="Cuéntame sobre tu proyecto, presupuesto estimado y plazos..." class="form-input" aria-required="true"></textarea>
+              </div>
+
+              <!-- Botón de envío -->
+              <button type="submit" class="btn-submit" id="submit-btn">
+                Enviar mensaje
+                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+
+              <!-- Mensajes de estado (éxito o error) -->
+              <div role="status" aria-live="polite" aria-atomic="true">
+                <div id="form-success" class="form-status">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  <p>Mensaje recibido correctamente. Me pondré en contacto en las próximas 24 horas.</p>
+                </div>
+                <div id="form-error" class="form-status">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                  <p id="error-msg">Error al enviar. Por favor intenta nuevamente.</p>
+                </div>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FOOTER — Pie de página
+       ═══════════════════════════════════════════════════════════ -->
+  <footer role="contentinfo" aria-label="Pie de página">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Bloque de marca -->
+        <div>
+          <a href="#home" class="footer-brand-link" aria-label="CodeGhost — ir al inicio">
+            <svg width="30" height="30" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+              <path d="M50 10C27.91 10 10 27.91 10 50V90L23.33 80L36.67 90L50 80L63.33 90L76.67 80L90 90V50C90 27.91 72.09 10 50 10Z" stroke="#00f5ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M33 42L23 52L33 62" stroke="#00ff88" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M67 42L77 52L67 62" stroke="#00ff88" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M55 32L45 72" stroke="#00ff88" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>CodeGhost</span>
+          </a>
+
+          <p class="footer-slogan">Codificación Espectral</p>
+          <p class="footer-desc">Estudio de desarrollo web especializado en experiencias de alto rendimiento, diseño oscuro y arquitectura impecable.</p>
+
+          <!-- Íconos de redes sociales -->
+          <nav aria-label="Redes sociales y contacto">
+            <div class="social-links">
+              <!-- GitHub -->
+              <a href="https://github.com/CodeGhost-studio" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub de CodeGhost">
+                <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              </a>
+              <!-- Email -->
+              <a href="mailto:CodeGhost.studio@gmail.com" class="social-link" aria-label="Correo electrónico">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </a>
+              <!-- WhatsApp -->
+              <a href="https://wa.me/5804147601459?text=Hola%20CodeGhost%2C%20quiero%20conocer%20tus%20servicios%20de%20desarrollo%20web" target="_blank" rel="noopener noreferrer" class="social-link wa" aria-label="WhatsApp">
+                <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                  <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.118 1.527 5.845L.057 23.617a.75.75 0 00.921.921l5.772-1.47A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.914 0-3.7-.506-5.235-1.39l-.374-.217-3.882.99.99-3.882-.217-.374A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+                </svg>
+              </a>
+            </div>
+          </nav>
+        </div>
+
+        <!-- Bloque de contacto -->
+        <div class="footer-contact">
+          <h2>Contacto</h2>
+          <ul>
+            <li><a href="mailto:CodeGhost.studio@gmail.com">CodeGhost.studio@gmail.com</a></li>
+            <li><a href="https://wa.me/5804147601459?text=Hola%20CodeGhost%2C%20quiero%20conocer%20tus%20servicios" target="_blank" rel="noopener noreferrer" class="green">+58 0414-7601459</a></li>
+            <li><a href="https://github.com/CodeGhost-studio" target="_blank" rel="noopener noreferrer">github.com/CodeGhost-studio</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Barra de copyright -->
+      <div class="footer-bottom">
+        <p class="footer-copy">© <span id="footer-year"></span> CodeGhost. Todos los derechos reservados.</p>
+        <div class="footer-meta" aria-hidden="true">
+          <span>UPTIME 99.99%</span>
+          <span class="footer-meta-sep"></span>
+          <span>CONEXIÓN SEGURA</span>
+          <span class="footer-meta-sep"></span>
+          <span class="footer-version">v2.0</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       WHATSAPP — Botón flotante
+       ═══════════════════════════════════════════════════════════ -->
+  <a
+    href="https://wa.me/5804147601459?text=Hola%20CodeGhost%2C%20quiero%20conocer%20tus%20servicios%20de%20desarrollo%20web"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="whatsapp-btn"
+    aria-label="Contactar por WhatsApp (abre en nueva pestaña)"
+  >
+    <span class="whatsapp-ping" aria-hidden="true"></span>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.118 1.527 5.845L.057 23.617a.75.75 0 00.921.921l5.772-1.47A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.914 0-3.7-.506-5.235-1.39l-.374-.217-3.882.99.99-3.882-.217-.374A9.953 9.953 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+    </svg>
+  </a>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
