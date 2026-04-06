@@ -1,0 +1,30 @@
+{
+  "name": "codeghost-web",
+  "version": "1.0.0",
+  "description": "CodeGhost — Estudio de Desarrollo Web | Codificación Espectral",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codeghost-studio/CodeGhost-web.git"
+  },
+  "keywords": [
+    "web",
+    "development",
+    "studio",
+    "html5",
+    "css3",
+    "javascript"
+  ],
+  "author": "CodeGhost Studio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codeghost-studio/CodeGhost-web/issues"
+  },
+  "homepage": "https://github.com/codeghost-studio/CodeGhost-web#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
